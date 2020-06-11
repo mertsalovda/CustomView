@@ -30,16 +30,16 @@ class PieChartView @JvmOverloads constructor(
 
     private var mAllValuesSum: Float = 0f
 
-    private var mStandartBounds: RectF
-    private var mSelectedBounds: RectF
-    private var mTotalBounds: RectF
-    private var mMainTextBounds: Rect
+    private val mStandartBounds: RectF
+    private val mSelectedBounds: RectF
+    private val mTotalBounds: RectF
+    private val mMainTextBounds: Rect
 
-    private var mBoundsToUp: RectF
-    private var mBoundsToDown: RectF
+    private val mBoundsToUp: RectF
+    private val mBoundsToDown: RectF
 
-    private var mGestureDetector: GestureDetector
-    private var mSizeAnimator: ValueAnimator
+    private val mGestureDetector: GestureDetector
+    private val mSizeAnimator: ValueAnimator
 
     private val mSectors: MutableList<Sector>
 
