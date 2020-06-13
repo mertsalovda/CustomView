@@ -145,12 +145,11 @@ class PieChartView @JvmOverloads constructor(
         var startAngle = 0f
         var drawBound: RectF
         for (i in mSectors.indices) {
-            drawBound = if (i == mSelectedIndex)
-                mBoundsToUp
-            else if (i == mOldSelectedIndex)
-                mBoundsToDown
-            else
-                mStandartBounds
+            drawBound = when (i) {
+                mSelectedIndex -> mBoundsToUp
+                mOldSelectedIndex -> mBoundsToDown
+                else -> mStandartBounds
+            }
             startAngle = mSectors[i].draw(canvas, drawBound, startAngle)
         }
 
