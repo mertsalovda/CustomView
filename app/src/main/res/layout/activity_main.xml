@@ -8,6 +8,9 @@
 
     <ru.mertsalovda.customview.IndicatorView
         android:id="@+id/counter"
+        app:maxValue="10"
+        app:startValue="1"
+        app:length="123"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

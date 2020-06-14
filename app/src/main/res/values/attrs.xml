@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="IndicatorView">
+        <attr name="length" format="string|reference" />
+        <attr name="textColor" format="reference" />
+        <attr name="emptySectorColor" format="reference" />
+        <attr name="fillSectorColor" format="reference" />
+        <attr name="maxValue" format="integer|reference" />
+        <attr name="startValue" format="integer|reference" />
+    </declare-styleable>
+</resources>

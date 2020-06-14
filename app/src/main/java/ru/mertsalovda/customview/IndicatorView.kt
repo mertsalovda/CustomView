@@ -12,9 +12,9 @@ class IndicatorView @JvmOverloads constructor(
     private var mTextWidth: Float = 0f
     private val mTextPaint: Paint
 
-    private var mExtDiametr: Float = 0f
-    private var mInnDiametr: Float = 0f
-    private var mTotalDiametr: Float = 0f
+    private var mExtDiameter: Float = 0f
+    private var mInnDiameter: Float = 0f
+    private var mTotalDiameter: Float = 0f
 
     private val mEmptySectorPaint: Paint
     private val mFillSectorPaint: Paint
@@ -65,11 +65,11 @@ class IndicatorView @JvmOverloads constructor(
         mTextWidth = mTextPaint.measureText(mMaxLength)
         mTextPaint.getTextBounds("A", 0, 1, mTextBounds)
 
-        mInnDiametr = mTextWidth * 1.1f
-        mExtDiametr = mTextWidth * 1.15f
-        mTotalDiametr = mTextWidth * 1.2f
+        mInnDiameter = mTextWidth * 1.1f
+        mExtDiameter = mTextWidth * 1.15f
+        mTotalDiameter = mTextWidth * 1.2f
 
-        val desiredDiameter = mTotalDiametr
+        val desiredDiameter = mTotalDiameter
 
         val measuredWidth = resolveSize(desiredDiameter.toInt(), widthMeasureSpec)
         val measuredHeight = resolveSize(desiredDiameter.toInt(), heightMeasureSpec)
@@ -87,20 +87,20 @@ class IndicatorView @JvmOverloads constructor(
         canvas.apply {
             save()
             rotate(-90f, cx, cy)
-            drawCircle(cx, cy, mExtDiametr / 2f, mInnerCirclePaint)
+            drawCircle(cx, cy, mExtDiameter / 2f, mInnerCirclePaint)
 
             drawSectors(this, cx, cy)
 
             restore()
-            drawCircle(cx, cy, mInnDiametr / 2f, mInnerCirclePaint)
+            drawCircle(cx, cy, mInnDiameter / 2f, mInnerCirclePaint)
             drawText(mValue.toString(), cx, (mTextBounds.height() / 2f) + cy, mTextPaint)
         }
     }
 
     private fun drawSectors(canvas: Canvas, cx: Float, cy: Float) {
         when (mValue) {
-            mMaxValue -> canvas.drawCircle(cx, cy, mExtDiametr / 2f, mFillSectorPaint)
-            0 -> canvas.drawCircle(cx, cy, mExtDiametr / 2f, mEmptySectorPaint)
+            mMaxValue -> canvas.drawCircle(cx, cy, mExtDiameter / 2f, mFillSectorPaint)
+            0 -> canvas.drawCircle(cx, cy, mExtDiameter / 2f, mEmptySectorPaint)
             else -> {
                 var angle = 0f
                 for (i in 1..mMaxValue) {
