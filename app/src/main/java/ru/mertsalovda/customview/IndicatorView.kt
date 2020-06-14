@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContextCompat
 
 class IndicatorView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -27,24 +28,43 @@ class IndicatorView @JvmOverloads constructor(
     private val mMaxLength = "000"
     private var mValue = 0
     private var mMaxValue = 4
+    private var mTextColor = Color.BLUE
+    private var mFillSectorColor = Color.BLUE
+    private var mEmptySectorColor = Color.GRAY
 
     private val mSweepAngle: Float
     private val mShiftAngle: Float
 
     init {
+        context.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.IndicatorView,
+            0,
+            R.style.AppTheme
+        ).apply {
+            mMaxValue = getInt(R.styleable.IndicatorView_maxValue, 4)
+            mValue = getInt(R.styleable.IndicatorView_startValue, 0)
+            mTextColor = getColor(R.styleable.IndicatorView_textColor, Color.BLUE)
+            mFillSectorColor = getColor(R.styleable.IndicatorView_fillSectorColor, Color.BLUE)
+            mEmptySectorColor =
+                getColor(R.styleable.IndicatorView_emptySectorColor, Color.GRAY)
+            recycle()
+        }
+
         mFillSectorPaint = Paint().apply {
-            color = Color.BLUE
+            color = mFillSectorColor
             style = Paint.Style.FILL_AND_STROKE
             isAntiAlias = true
         }
 
         mTextPaint = Paint(mFillSectorPaint).apply {
+            color = mTextColor
             textSize = resources.getDimensionPixelSize(R.dimen.very_big_text).toFloat()
             textAlign = Paint.Align.CENTER
         }
 
         mEmptySectorPaint = Paint(mFillSectorPaint).apply {
-            color = Color.GRAY
+            color = mEmptySectorColor
             setAlpha(0.4f)
         }
 
