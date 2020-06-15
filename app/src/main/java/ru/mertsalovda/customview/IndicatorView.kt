@@ -25,7 +25,7 @@ class IndicatorView @JvmOverloads constructor(
     private val mTotalBounds: RectF
     private val mSectorBounds: RectF
 
-    private val mMaxLength = "000"
+    private var mTextSize = 100f
     private var mValue = 0
     private var mMaxValue = 4
     private var mTextColor = Color.BLUE
@@ -33,7 +33,7 @@ class IndicatorView @JvmOverloads constructor(
     private var mEmptySectorColor = Color.GRAY
 
     private val mSweepAngle: Float
-    private val mShiftAngle: Float
+    private var mShiftAngle: Float = 0f
 
     init {
         context.theme.obtainStyledAttributes(
@@ -48,6 +48,7 @@ class IndicatorView @JvmOverloads constructor(
             mFillSectorColor = getColor(R.styleable.IndicatorView_fillSectorColor, Color.BLUE)
             mEmptySectorColor =
                 getColor(R.styleable.IndicatorView_emptySectorColor, Color.GRAY)
+            mTextSize = getFloat(R.styleable.IndicatorView_textSize, 48f)
             recycle()
         }
 
@@ -59,7 +60,7 @@ class IndicatorView @JvmOverloads constructor(
 
         mTextPaint = Paint(mFillSectorPaint).apply {
             color = mTextColor
-            textSize = resources.getDimensionPixelSize(R.dimen.very_big_text).toFloat()
+            textSize = mTextSize
             textAlign = Paint.Align.CENTER
         }
 
@@ -76,23 +77,26 @@ class IndicatorView @JvmOverloads constructor(
         mSectorBounds = RectF()
         mTextBounds = Rect()
 
-        val angle = 360 / mMaxValue
-        mShiftAngle = angle * 0.05f
-        mSweepAngle = angle - mShiftAngle
+        val angle = 360f / mMaxValue
+        if (mMaxValue <= 60)
+            mShiftAngle = (angle * 0.05f) / 2f
+        mSweepAngle = angle - mShiftAngle * 2f
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        mTextWidth = mTextPaint.measureText(mMaxLength)
+        mTextWidth = mTextPaint.measureText(mMaxValue.toString())
         mTextPaint.getTextBounds("A", 0, 1, mTextBounds)
 
-        mInnDiameter = mTextWidth * 1.1f
-        mExtDiameter = mTextWidth * 1.15f
-        mTotalDiameter = mTextWidth * 1.2f
+        val wh = MeasureSpec.getSize(widthMeasureSpec).toFloat()
+        mExtDiameter = wh
+        mInnDiameter = MeasureSpec.getSize(widthMeasureSpec) * 0.91f
+        mTotalDiameter = mExtDiameter
 
-        val desiredDiameter = mTotalDiameter
-
-        val measuredWidth = resolveSize(desiredDiameter.toInt(), widthMeasureSpec)
-        val measuredHeight = resolveSize(desiredDiameter.toInt(), heightMeasureSpec)
+//        val desiredDiameter = mTotalDiameter
+//        val measuredWidth = resolveSize(desiredDiameter.toInt(), widthMeasureSpec)
+//        val measuredHeight = resolveSize(desiredDiameter.toInt(), heightMeasureSpec)
+        val measuredWidth = wh.toInt()
+        val measuredHeight = wh.toInt()
 
         mTotalBounds.set(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat())
         mSectorBounds.set(mTotalBounds)
@@ -124,13 +128,13 @@ class IndicatorView @JvmOverloads constructor(
             else -> {
                 var angle = 0f
                 for (i in 1..mMaxValue) {
-                    angle += mShiftAngle / 2f
+                    angle += mShiftAngle
                     if (i <= mValue) {
                         canvas.drawArc(mSectorBounds, angle, mSweepAngle, true, mFillSectorPaint)
                     } else {
                         canvas.drawArc(mSectorBounds, angle, mSweepAngle, true, mEmptySectorPaint)
                     }
-                    angle += mSweepAngle + mShiftAngle / 2
+                    angle += mSweepAngle + mShiftAngle
                 }
             }
         }
@@ -138,21 +142,17 @@ class IndicatorView @JvmOverloads constructor(
 
     fun getValue() = mValue
     fun setValue(value: Int) {
-        mValue = if (value > mMaxValue) {
-            mMaxValue
+        if (value > mMaxValue) {
+            mValue = mMaxValue
         } else {
-            value
+            mValue = value
+            invalidate()
         }
-        invalidate()
     }
 
     fun getMaxValue() = mMaxValue
     fun setMaxValue(value: Int) {
-        mMaxValue = if (value > 60) {
-            60
-        } else {
-            value
-        }
+        mMaxValue = value
         invalidate()
     }
 }
