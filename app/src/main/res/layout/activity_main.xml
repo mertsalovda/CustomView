@@ -26,28 +26,25 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 app:maxValue="4"
-                app:startValue="0"
-                app:textSize="48" />
+                app:startValue="0"/>
 
             <ru.mertsalovda.customview.IndicatorView
                 android:id="@+id/counter1"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
-                android:paddingTop="16dp"
                 app:emptySectorColor="@color/chart_4"
                 app:fillSectorColor="@color/chart_1"
                 app:maxValue="4"
                 app:startValue="4"
                 app:textColor="@color/chart_3"
-                app:textSize="200" />
+                app:textSize="300" />
 
             <ru.mertsalovda.customview.IndicatorView
                 android:id="@+id/counter2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="16dp"
                 app:maxValue="10"
-                app:startValue="4"
+                app:startValue="7"
                 app:textSize="400" />
         </LinearLayout>
     </ScrollView>

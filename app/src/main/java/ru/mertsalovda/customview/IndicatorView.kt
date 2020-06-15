@@ -89,18 +89,15 @@ class IndicatorView @JvmOverloads constructor(
 
         val wh = MeasureSpec.getSize(widthMeasureSpec).toFloat()
         mExtDiameter = wh
-        mInnDiameter = MeasureSpec.getSize(widthMeasureSpec) * 0.91f
+        mInnDiameter = wh * 0.9f
         mTotalDiameter = mExtDiameter
 
-//        val desiredDiameter = mTotalDiameter
-//        val measuredWidth = resolveSize(desiredDiameter.toInt(), widthMeasureSpec)
-//        val measuredHeight = resolveSize(desiredDiameter.toInt(), heightMeasureSpec)
-        val measuredWidth = wh.toInt()
-        val measuredHeight = wh.toInt()
+        val measuredWidth = resolveSize(mTotalDiameter.toInt(), widthMeasureSpec)
+        val measuredHeight = resolveSize(mTotalDiameter.toInt(), heightMeasureSpec)
 
         mTotalBounds.set(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat())
         mSectorBounds.set(mTotalBounds)
-        mSectorBounds.inset(mTextWidth * 0.025f, mTextWidth * 0.025f)
+//        mSectorBounds.inset(mTextWidth * 0.025f, mTextWidth * 0.025f)
 
         setMeasuredDimension(measuredWidth, measuredHeight)
     }
