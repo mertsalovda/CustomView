@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import androidx.core.content.ContextCompat
+import kotlin.math.min
 
 class IndicatorView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -15,7 +15,6 @@ class IndicatorView @JvmOverloads constructor(
 
     private var mExtDiameter: Float = 0f
     private var mInnDiameter: Float = 0f
-    private var mTotalDiameter: Float = 0f
 
     private val mEmptySectorPaint: Paint
     private val mFillSectorPaint: Paint
@@ -31,6 +30,8 @@ class IndicatorView @JvmOverloads constructor(
     private var mTextColor = Color.BLUE
     private var mFillSectorColor = Color.BLUE
     private var mEmptySectorColor = Color.GRAY
+
+    private var mRectSectorPaint: Paint
 
     private val mSweepAngle: Float
     private var mShiftAngle: Float = 0f
@@ -73,6 +74,12 @@ class IndicatorView @JvmOverloads constructor(
             color = Color.WHITE
         }
 
+        mRectSectorPaint = Paint().apply {
+            color = Color.BLACK
+            style = Paint.Style.STROKE
+            isAntiAlias = true
+        }
+
         mTotalBounds = RectF()
         mSectorBounds = RectF()
         mTextBounds = Rect()
@@ -87,17 +94,23 @@ class IndicatorView @JvmOverloads constructor(
         mTextWidth = mTextPaint.measureText(mMaxValue.toString())
         mTextPaint.getTextBounds("A", 0, 1, mTextBounds)
 
-        val wh = MeasureSpec.getSize(widthMeasureSpec).toFloat()
-        mExtDiameter = wh
-        mInnDiameter = wh * 0.9f
-        mTotalDiameter = mExtDiameter
+        val w = MeasureSpec.getSize(widthMeasureSpec).toFloat()
+        val h = MeasureSpec.getSize(heightMeasureSpec).toFloat()
+        val min = min(w, h)
 
-        val measuredWidth = resolveSize(mTotalDiameter.toInt(), widthMeasureSpec)
-        val measuredHeight = resolveSize(mTotalDiameter.toInt(), heightMeasureSpec)
+        val measuredWidth = resolveSize(min.toInt(), widthMeasureSpec)
+        val measuredHeight = resolveSize(min.toInt(), heightMeasureSpec)
 
-        mTotalBounds.set(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat())
-        mSectorBounds.set(mTotalBounds)
-//        mSectorBounds.inset(mTextWidth * 0.025f, mTextWidth * 0.025f)
+        mExtDiameter = measuredWidth * 0.9f
+        mInnDiameter = mExtDiameter * 0.9f
+
+        val side = measuredWidth.toFloat()
+        mSectorBounds.set(
+            side * 0.05f,
+            side * 0.05f,
+            side * 0.95f,
+            side * 0.95f
+        )
 
         setMeasuredDimension(measuredWidth, measuredHeight)
     }

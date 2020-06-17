@@ -22,22 +22,11 @@
             android:padding="16dp">
 
             <ru.mertsalovda.customview.IndicatorView
-                android:id="@+id/counter3"
+                android:id="@+id/counter1"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 app:maxValue="4"
                 app:startValue="0"/>
-
-            <ru.mertsalovda.customview.IndicatorView
-                android:id="@+id/counter1"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                app:emptySectorColor="@color/chart_4"
-                app:fillSectorColor="@color/chart_1"
-                app:maxValue="4"
-                app:startValue="4"
-                app:textColor="@color/chart_3"
-                app:textSize="300" />
 
             <ru.mertsalovda.customview.IndicatorView
                 android:id="@+id/counter2"
@@ -46,6 +35,17 @@
                 app:maxValue="10"
                 app:startValue="7"
                 app:textSize="400" />
+
+            <ru.mertsalovda.customview.IndicatorView
+                android:id="@+id/counter3"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                app:emptySectorColor="@color/chart_4"
+                app:fillSectorColor="@color/chart_1"
+                app:maxValue="4"
+                app:startValue="2"
+                app:textColor="@color/chart_3"
+                app:textSize="300" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
