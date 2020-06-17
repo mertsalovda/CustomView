@@ -31,8 +31,6 @@ class IndicatorView @JvmOverloads constructor(
     private var mFillSectorColor = Color.BLUE
     private var mEmptySectorColor = Color.GRAY
 
-    private var mRectSectorPaint: Paint
-
     private val mSweepAngle: Float
     private var mShiftAngle: Float = 0f
 
@@ -72,12 +70,6 @@ class IndicatorView @JvmOverloads constructor(
 
         mInnerCirclePaint = Paint(mFillSectorPaint).apply {
             color = Color.WHITE
-        }
-
-        mRectSectorPaint = Paint().apply {
-            color = Color.BLACK
-            style = Paint.Style.STROKE
-            isAntiAlias = true
         }
 
         mTotalBounds = RectF()
