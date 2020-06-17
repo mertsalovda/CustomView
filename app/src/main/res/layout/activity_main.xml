@@ -31,7 +31,7 @@
             <ru.mertsalovda.customview.IndicatorView
                 android:id="@+id/counter2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:maxValue="10"
                 app:startValue="7"
                 app:textSize="400" />
