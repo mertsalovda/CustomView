@@ -6,6 +6,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.graphics.ColorUtils
 import kotlin.math.min
 
 
@@ -58,7 +59,7 @@ class ProgressBarView @JvmOverloads constructor(
                 mStartProgressColor = getColor(R.styleable.ProgressBarView_startColor, Color.BLUE)
                 mEndProgressColor = getColor(R.styleable.ProgressBarView_endColor, Color.BLUE)
                 mProgressColor = getColor(R.styleable.ProgressBarView_progressColor, -1)
-                if (mProgressColor < 0){
+                if (mProgressColor < 0) {
                     mProgressColor = mStartProgressColor
                 }
             }
@@ -108,21 +109,13 @@ class ProgressBarView @JvmOverloads constructor(
             setEvaluator(ArgbEvaluator())
             addUpdateListener {
                 val position: Float = it.animatedFraction
-                mProgressColor = if (mValue > mOldValue){
-                    blendColors(mCurrentProgressColor, mEndProgressColor, position)
-                } else{
-                    blendColors(mCurrentProgressColor, mStartProgressColor, position)
+                mProgressColor = if (mValue > mOldValue) {
+                    ColorUtils.blendARGB(mCurrentProgressColor, mEndProgressColor, position)
+                } else {
+                    ColorUtils.blendARGB(mCurrentProgressColor, mStartProgressColor, position)
                 }
             }
         }
-    }
-
-    private fun blendColors(from: Int, to: Int, ratio: Float): Int {
-        val inverseRatio = 1f - ratio
-        val r = Color.red(to) * ratio + Color.red(from) * inverseRatio
-        val g = Color.green(to) * ratio + Color.green(from) * inverseRatio
-        val b = Color.blue(to) * ratio + Color.blue(from) * inverseRatio
-        return Color.rgb(r.toInt(), g.toInt(), b.toInt())
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
