@@ -13,7 +13,6 @@ class ProgressBarView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private var mExtDiameter = 0f
     private var mInnDiameter = 0f
 
     private val mSupportPaint: Paint
