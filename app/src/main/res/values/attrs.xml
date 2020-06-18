@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="textSize" format="float" />
+    <attr name="maxValue" format="integer|reference" />
+
     <declare-styleable name="IndicatorView">
         <attr name="textColor" format="reference" />
-        <attr name="textSize" format="float" />
+        <attr name="textSize"/>
         <attr name="emptySectorColor" format="reference" />
         <attr name="fillSectorColor" format="reference" />
-        <attr name="maxValue" format="integer|reference" />
+        <attr name="maxValue"/>
         <attr name="startValue" format="integer|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ProgressBarView">
+        <attr name="textSize"/>
+        <attr name="metricTextSize" format="float" />
+        <attr name="startColor" format="reference" />
+        <attr name="endColor" format="reference" />
+        <attr name="progressColor" format="reference" />
+        <attr name="metric" format="string|reference" />
+        <attr name="maxValue"/>
+        <attr name="value" format="integer|reference" />
     </declare-styleable>
 </resources>
