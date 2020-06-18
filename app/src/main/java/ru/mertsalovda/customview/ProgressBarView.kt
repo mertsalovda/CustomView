@@ -6,7 +6,6 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlin.math.min
 
 
