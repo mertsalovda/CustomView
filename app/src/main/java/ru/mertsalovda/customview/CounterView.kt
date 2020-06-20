@@ -11,7 +11,10 @@ class CounterView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private val mDuration = 200L
+    companion object{
+        private const val DURATION = 300L
+    }
+
     private val mMaxValuePaint: Paint
 
     private val mValuePaint: Paint
@@ -85,7 +88,7 @@ class CounterView @JvmOverloads constructor(
         mSeparatorBounds = Rect()
 
         mMoveDownValueAnimator.apply {
-            duration = mDuration
+            duration = DURATION
             addUpdateListener {
                 val value = it.animatedValue as Int
                 mValueBounds.set(
@@ -118,9 +121,8 @@ class CounterView @JvmOverloads constructor(
             })
         }
 
-
         mMoveUpValueAnimator.apply {
-            duration = mDuration
+            duration = DURATION
             addUpdateListener {
                 val value = it.animatedValue as Int
                 mValueBounds.set(
@@ -152,7 +154,6 @@ class CounterView @JvmOverloads constructor(
                 }
             })
         }
-
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -181,15 +182,15 @@ class CounterView @JvmOverloads constructor(
 
         mValueBoundsUp.set(
             mValueBoundsCenter.left,
-            mValueBoundsCenter.top - measuredHeight,
+            mValueBoundsCenter.top - (measuredHeight*.5f).toInt(),
             mValueBoundsCenter.right,
-            mValueBoundsCenter.bottom - measuredHeight
+            mValueBoundsCenter.bottom - (measuredHeight*.5f).toInt()
         )
         mValueBoundsDown.set(
             mValueBoundsCenter.left,
-            mValueBoundsCenter.top + (measuredHeight * 2),
+            mValueBoundsCenter.top + (measuredHeight * 1.5f).toInt(),
             mValueBoundsCenter.right,
-            mValueBoundsCenter.bottom + (measuredHeight * 2)
+            mValueBoundsCenter.bottom + (measuredHeight * 1.5f).toInt()
         )
 
         setMeasuredDimension(measuredWidth, measuredHeight)
