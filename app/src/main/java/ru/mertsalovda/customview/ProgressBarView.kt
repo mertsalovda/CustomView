@@ -56,11 +56,14 @@ class ProgressBarView @JvmOverloads constructor(
                 mValue = getInt(R.styleable.ProgressBarView_value, 0)
                 mMaxValue = getInt(R.styleable.ProgressBarView_maxValue, 100)
                 mMetric = getString(R.styleable.ProgressBarView_metric) ?: "%"
-                mStartProgressColor = getColor(R.styleable.ProgressBarView_startColor, Color.BLUE)
-                mEndProgressColor = getColor(R.styleable.ProgressBarView_endColor, Color.BLUE)
                 mProgressColor = getColor(R.styleable.ProgressBarView_progressColor, -1)
-                if (mProgressColor < 0) {
+                if (mProgressColor == -1) {
+                    mStartProgressColor = getColor(R.styleable.ProgressBarView_startColor, Color.BLUE)
+                    mEndProgressColor = getColor(R.styleable.ProgressBarView_endColor, Color.BLUE)
                     mProgressColor = mStartProgressColor
+                } else {
+                    mStartProgressColor = mProgressColor
+                    mEndProgressColor = mProgressColor
                 }
             }
 

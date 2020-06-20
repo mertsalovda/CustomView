@@ -15,8 +15,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnStart"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:progressColor="@color/colorPrimaryDark" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnStart"
