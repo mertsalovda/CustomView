@@ -6,34 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ru.mertsalovda.customview.ProgressBarView
-        android:id="@+id/progress"
+    <ru.mertsalovda.customview.CounterView
+        android:id="@+id/counter"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:startColor="@android:color/holo_red_dark"
-        app:endColor="@android:color/holo_green_light"
-        app:layout_constraintBottom_toTopOf="@+id/btnStart"
+        android:background="@color/chart_1"
+        app:layout_constraintBottom_toTopOf="@+id/buttons"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:progressColor="@color/colorPrimaryDark" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <Button
-        android:id="@+id/btnStart"
+    <LinearLayout
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Start"
-        app:layout_constraintBottom_toTopOf="@+id/btnReset"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnReset"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Reset"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
- </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btnPlus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="++" />
+
+        <Button
+            android:id="@+id/btnMinus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="--" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

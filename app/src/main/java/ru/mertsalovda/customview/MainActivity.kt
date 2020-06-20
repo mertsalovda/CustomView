@@ -10,11 +10,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnStart.setOnClickListener{
-            progress.setValue(100)
+        btnPlus.setOnClickListener {
+            counter.setValue(counter.getValue() + 1)
         }
-        btnReset.setOnClickListener{
-            progress.setValue(0)
+        btnMinus.setOnClickListener {
+            counter.setValue(counter.getValue() - 1)
         }
     }
 }
