@@ -3,10 +3,7 @@ package ru.mertsalovda.customview
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 
@@ -19,10 +16,7 @@ class CounterView @JvmOverloads constructor(
 
     private val mValuePaint: Paint
     private val mSeparatorPaint: Paint
-    private var mMaxValueTextSize = 100f
 
-    private var mValueTextSize = 100f
-    private var mSeparatorTextSize = 100f
     private var mMaxValueTextWidth = 0f
     private var maxTextHeight = 0
 
@@ -38,30 +32,48 @@ class CounterView @JvmOverloads constructor(
 
     private var mValue = 0
     private var mNewValue = mValue
-    private var mMaxValue = 10
+    private var mMaxValue = 0
     private var mSeparator = "/"
+    private val mValueColor: Int
+    private val mMaxValueColor: Int
+    private val mSeparatorColor: Int
+    private var mTextSize: Float
+    private var mFontStyle: Int
+
 
     private val mMoveDownValueAnimator = ValueAnimator()
     private val mMoveUpValueAnimator = ValueAnimator()
 
     init {
+        context.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.CounterView,
+            0,
+            R.style.AppTheme
+        )
+            .apply {
+                mTextSize = getFloat(R.styleable.CounterView_textSize, 100f)
+                mValue = getInt(R.styleable.CounterView_value, 0)
+                mMaxValue = getInt(R.styleable.CounterView_maxValue, 10)
+                mSeparator = getString(R.styleable.CounterView_separator) ?: "/"
+                mValueColor = getColor(R.styleable.CounterView_valueColor, Color.BLACK)
+                mMaxValueColor = getColor(R.styleable.CounterView_maxValueColor, Color.BLACK)
+                mSeparatorColor = getColor(R.styleable.CounterView_separatorColor, Color.BLACK)
+                mFontStyle = getInt(R.styleable.CounterView_textStyle, 0)
+            }
+
         mMaxValuePaint = Paint().apply {
-            textSize = mMaxValueTextSize
-            color = Color.BLACK
+            textSize = mTextSize
+            color = mMaxValueColor
+            typeface = Typeface.create(Typeface.DEFAULT, mFontStyle)
             isAntiAlias = true
             textAlign = Paint.Align.CENTER
         }
-        mValuePaint = Paint().apply {
-            textSize = mValueTextSize
-            color = Color.BLACK
-            isAntiAlias = true
-            textAlign = Paint.Align.CENTER
+        mValuePaint = Paint(mMaxValuePaint).apply {
+            color = mValueColor
         }
-        mSeparatorPaint = Paint().apply {
-            textSize = mSeparatorTextSize
-            color = Color.BLACK
-            isAntiAlias = true
-            textAlign = Paint.Align.CENTER
+        mSeparatorPaint = Paint(mMaxValuePaint).apply {
+            color = mSeparatorColor
         }
 
         mValueBounds = Rect()
