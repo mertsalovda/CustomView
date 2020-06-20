@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="textSize" format="float" />
-    <attr name="maxValue" format="integer|reference" />
     <attr name="value" format="integer|reference" />
 
     <declare-styleable name="CounterView">
         <attr name="value" />
-        <attr name="maxValue" />
+        <attr name="maxValue" format="integer|reference" />
         <attr name="textSize" />
         <attr name="valueColor" format="reference" />
         <attr name="maxValueColor" format="reference" />
