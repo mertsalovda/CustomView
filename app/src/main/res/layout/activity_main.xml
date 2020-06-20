@@ -18,6 +18,7 @@
         app:textStyle="italic"
         app:maxValue="15"
         app:value="2"
+        app:separator="||"
         app:separatorColor="@color/chart_4"
         app:valueColor="@color/chart_2"
         app:maxValueColor="@color/chart_3"

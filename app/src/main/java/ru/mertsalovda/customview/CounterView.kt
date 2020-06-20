@@ -71,6 +71,7 @@ class CounterView @JvmOverloads constructor(
         }
         mValuePaint = Paint(mMaxValuePaint).apply {
             color = mValueColor
+            textAlign = Paint.Align.RIGHT
         }
         mSeparatorPaint = Paint(mMaxValuePaint).apply {
             color = mSeparatorColor
@@ -105,10 +106,13 @@ class CounterView @JvmOverloads constructor(
                         }
                     }
                 }
+
                 override fun onAnimationRepeat(animation: Animator?) {
                 }
+
                 override fun onAnimationCancel(animation: Animator?) {
                 }
+
                 override fun onAnimationStart(animation: Animator?) {
                 }
             })
@@ -137,10 +141,13 @@ class CounterView @JvmOverloads constructor(
                         }
                     }
                 }
+
                 override fun onAnimationRepeat(animation: Animator?) {
                 }
+
                 override fun onAnimationCancel(animation: Animator?) {
                 }
+
                 override fun onAnimationStart(animation: Animator?) {
                 }
             })
@@ -190,15 +197,15 @@ class CounterView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         val x = canvas.width / 2f
-        val y = (canvas.height / 2f) + (maxTextHeight) / 2f
+        val y = (canvas.height / 2f) + (maxTextHeight / 2f)
         val valueY = mValueBounds.bottom.toFloat() + (canvas.height / 2f) - paddingBottom / 2f
 
         canvas.apply {
-            drawText(mSeparator, x, y, mSeparatorPaint)
-            drawText(mMaxValue.toString(), x + mSeparatorBounds.width() * 1.25f, y, mMaxValuePaint)
+            drawText(mSeparator, x, y - paddingBottom / 2f, mSeparatorPaint)
+            drawText(mMaxValue.toString(), x + mSeparatorBounds.width() * 1.15f, y, mMaxValuePaint)
             drawText(
                 mValue.toString(),
-                x - mSeparatorBounds.width() * 1.25f,
+                x - mSeparatorBounds.width() * 0.35f,
                 valueY * 2f,
                 mValuePaint
             )
@@ -231,5 +238,6 @@ class CounterView @JvmOverloads constructor(
             invalidate()
         }
     }
+
     fun getMaxValue() = mMaxValue
 }
