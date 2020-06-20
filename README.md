@@ -1,6 +1,5 @@
 # CustomView
-# IndicatorView, CounterView, ProgressBarView
-# CounterView
+# CounterView, ProgressBarView, IndicatorView, 
 <h>Примеры реализации Custom view.<br></h>
 
 <p>
