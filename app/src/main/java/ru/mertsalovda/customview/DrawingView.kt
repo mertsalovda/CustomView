@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 
@@ -13,9 +12,8 @@ class DrawingView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
-    private val shapes = mutableListOf<Shape>()
+    private val mLines = mutableListOf<Line>()
     private val mPaint: Paint
-    private val isDrawing = false
 
     init {
         mPaint = Paint().apply {
@@ -35,14 +33,14 @@ class DrawingView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        if (shapes.isNotEmpty()) {
-            shapes.map {
-                for (i in 1 until it.coordinatesX.size) {
+        if (mLines.isNotEmpty()) {
+            mLines.map {
+                for (i in 1 until it.coordinates.size) {
                     canvas.drawLine(
-                        it.coordinatesX[i - 1],
-                        it.coordinatesY[i - 1],
-                        it.coordinatesX[i],
-                        it.coordinatesY[i],
+                        it.coordinates[i - 1].first,
+                        it.coordinates[i - 1].second,
+                        it.coordinates[i].first,
+                        it.coordinates[i].second,
                         it.paint
                     )
                 }
@@ -52,9 +50,9 @@ class DrawingView @JvmOverloads constructor(
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
-            MotionEvent.ACTION_DOWN -> shapes.add(Shape(mPaint))
+            MotionEvent.ACTION_DOWN -> mLines.add(Line(mPaint))
             MotionEvent.ACTION_MOVE -> {
-                val shape = shapes.last()
+                val shape = mLines.last()
                 shape.addCoordinate(event.rawX, event.rawY - 125)
                 invalidate()
             }
@@ -71,24 +69,22 @@ class DrawingView @JvmOverloads constructor(
     }
 
     fun clear() {
-        shapes.clear()
+        mLines.clear()
         invalidate()
     }
 
     fun removeLast() {
-        if (shapes.isNotEmpty()) {
-            shapes.removeAt(shapes.size - 1)
+        if (mLines.isNotEmpty()) {
+            mLines.removeAt(mLines.size - 1)
             invalidate()
         }
     }
 
-    private class Shape(val paint: Paint) {
-        val coordinatesX = mutableListOf<Float>()
-        val coordinatesY = mutableListOf<Float>()
+    private class Line(val paint: Paint) {
+        val coordinates = mutableListOf<Pair<Float, Float>>()
 
         fun addCoordinate(x: Float, y: Float) {
-            coordinatesX.add(x)
-            coordinatesY.add(y)
+            coordinates.add(Pair(x, y))
         }
     }
 }
