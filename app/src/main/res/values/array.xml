@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="colors">
+        <item>@color/black</item>
+        <item>@color/white</item>
+        <item>@color/red</item>
+        <item>@color/orange</item>
+        <item>@color/yellow</item>
+        <item>@color/green</item>
+        <item>@color/blue</item>
+        <item>@color/violet</item>
+        <item>@color/pink</item>
+        <item>@color/gray</item>
+        <item>@color/brown</item>
+    </array>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="blue">#0024D6</color>
+    <color name="green">#0A9900</color>
+    <color name="yellow">#FFF300</color>
+    <color name="gray">#4B4B4B</color>
+    <color name="brown">#351700</color>
+    <color name="violet">#8400D6</color>
+    <color name="pink">#FF20FB</color>
+    <color name="orange">#FF6600</color>
+    <color name="red">#DA0F00</color>
+</resources>

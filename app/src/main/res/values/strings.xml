@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CustomView</string>
+    <string name="stroke_width">Ширина линии:</string>
 </resources>

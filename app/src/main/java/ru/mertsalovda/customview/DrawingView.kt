@@ -50,7 +50,9 @@ class DrawingView @JvmOverloads constructor(
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
-            MotionEvent.ACTION_DOWN -> mLines.add(Line(mPaint))
+            MotionEvent.ACTION_DOWN -> {
+                mLines.add(Line(Paint(mPaint)))
+            }
             MotionEvent.ACTION_MOVE -> {
                 val shape = mLines.last()
                 shape.addCoordinate(event.rawX, event.rawY - 125)
