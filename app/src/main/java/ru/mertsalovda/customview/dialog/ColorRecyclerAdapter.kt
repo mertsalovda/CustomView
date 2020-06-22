@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import ru.mertsalovda.customview.R
@@ -29,10 +28,6 @@ class ColorRecyclerAdapter(
 
         holder.itemView.findViewById<CardView>(R.id.layoutItem)
             .setCardBackgroundColor(if (mPositionSelected == position) Color.LTGRAY else Color.WHITE)
-    }
-
-    fun setListener(listener: OnClockItem) {
-        this.listener = listener
     }
 
     interface OnClockItem {

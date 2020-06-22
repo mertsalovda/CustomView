@@ -19,8 +19,6 @@ class PaintPickerDialog(private val listener: PaintPickerDialogListener) : Dialo
     private lateinit var tvStrokeWidth: TextView
     private lateinit var sbStrokeWidth: SeekBar
 
-    private lateinit var mAdapter: ColorRecyclerAdapter
-
     private var mColorResult = Color.BLACK
     private var mStrokeWidthResult = 20
 
@@ -45,11 +43,11 @@ class PaintPickerDialog(private val listener: PaintPickerDialogListener) : Dialo
 
         builder.setView(view)
         builder.setMessage("Выберете цвет и ширину линии")
-            .setPositiveButton("OK") { dialog, id ->
+            .setPositiveButton("OK") { _, _ ->
                 listener.onResultOk(mColorResult, mStrokeWidthResult)
                 onCancel()
             }
-            .setNegativeButton("Отмена") { dialog, id ->
+            .setNegativeButton("Отмена") { _, _ ->
                 onCancel()
             }
         val list = resources.getIntArray(R.array.colors).toMutableList()
